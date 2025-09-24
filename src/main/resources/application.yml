@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: rbpo-server
+  datasource:
+    url: jdbc:postgresql://localhost:5432/rbpo
+    username: rbpo
+    password: rbpo
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update        # создаст таблицы сам
+    show-sql: true
+  flyway:
+    enabled: false
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    level:
+      ru.mtuci.rbposerver.filters.JwtRequestFilter: WARN   # или свою пакет-фильтр
+
+# Пока НЕТ SSL, НЕТ RSA, НЕТ JWT-переменных
+server:
+  port: 8080                # обычный HTTP
+
+
+jwt:
+  secret: RbpoSuperSecretKey123456789012345678901234567890
+  access-jwt:
+    expiration: 900000
+  refresh-jwt:
+    expiration: 604800000
+management:
+  security:
+    enabled: false

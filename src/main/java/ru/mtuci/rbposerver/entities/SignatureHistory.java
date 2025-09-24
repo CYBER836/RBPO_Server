@@ -1,0 +1,57 @@
+package ru.mtuci.rbposerver.entities;
+
+import jakarta.persistence.*;
+import lombok.*;
+import ru.mtuci.rbposerver.entities.ENUMS.signature.STATUS;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Entity
+@Table(name = "signatures_history")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class SignatureHistory {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "history_id")
+    private Long historyId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "signature_id", referencedColumnName = "id")
+    private Signature signature;
+
+    @Column(name = "version_created_at")
+    private LocalDateTime versionCreatedAt;
+
+    @Column(name = "threat_name", columnDefinition = "TEXT") // Одно из строковых полей слишком короткое почему-то
+    private String threatName;
+
+    // @Lob ну или блоб в columnDefinition
+    @Column(name = "first_bytes", columnDefinition = "BYTEA")
+    private byte[] firstBytes;
+
+    @Column(columnDefinition = "TEXT") // Одно из строковых полей слишком короткое почему-то
+    private String remainderHash;
+
+    private int remainderLength;
+
+    private String fileType;
+
+    private int offsetStart;
+
+    private int offsetEnd;
+
+    @Column(columnDefinition = "TEXT") // Одно из строковых полей слишком короткое почему-то
+    private String digitalSignature;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private STATUS status;
+}
