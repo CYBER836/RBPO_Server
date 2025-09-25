@@ -31,6 +31,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         System.out.println(">>> REQUEST URI: " + request.getRequestURI());
         System.out.println(">>> JWT: " + request.getHeader("Authorization"));
         System.out.println(">>> URI: " + request.getRequestURI());
+        System.out.println(">>> JWT FILTER: " + request.getRequestURI() + " | Header: " + request.getHeader("Authorization"));
         try{
             String token = jwtUtil.resolveToken(request);
 
